@@ -5,18 +5,9 @@ BAMBOO后台管理系统--前端项目
 
 目前版本为 `v4.0+` 基于 `vue-cli` 进行构建，若你想使用旧版本，可以切换分支到[tag/3.11.0](https://github.com/PanJiaChen/bamboo-vue/tree/tag/3.11.0)，它不依赖 `vue-cli`。
 
-<p align="center">
-  <b>SPONSORED BY</b>
-</p>
-<p align="center">
-   <a href="https://finclip.com?from=vue_element" title="FinClip" target="_blank">
-      <img height="200px" src="https://gitee.com/panjiachen/gitee-cdn/raw/master/vue%E8%B5%9E%E5%8A%A9.png" title="FinClip">
-   </a>
-</p>
-
 ## Extra
 
-如果你想要根据用户角色来动态生成侧边栏和 router，你可以使用该分支[permission-control](https://github.com/PanJiaChen/bamboo-vue/tree/permission-control)
+如果你想要根据用户角色来动态生成侧边栏和 router
 
 ## 相关项目
 
@@ -71,7 +62,7 @@ npm run lint -- --fix
 
 ## Demo
 
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
+![demo]()
 
 ## Browsers support
 
@@ -83,6 +74,6 @@ Modern browsers and Internet Explorer 10+.
 
 ## License
 
-[MIT](https://github.com/PanJiaChen/bamboo-vue/blob/master/LICENSE) license.
+[MIT](https://github.com/jiefangen/bamboo-vue/blob/main/LICENSE) license.
 
 Copyright (c) 2022-present JieFangen
