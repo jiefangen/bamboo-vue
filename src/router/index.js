@@ -43,11 +43,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
     path: '/404',
     component: () => import('@/views/error-page/404'),
     hidden: true
@@ -56,6 +51,22 @@ export const constantRoutes = [
     path: '/401',
     component: () => import('@/views/error-page/401'),
     hidden: true
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'dashboard', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '首页', icon: 'dashboard' }
+    }]
   }
 ]
 
@@ -63,17 +74,6 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
  export const asyncRoutes = [
-    {
-      path: '/',
-      component: Layout,
-      redirect: '/dashboard',
-      children: [{
-        path: 'dashboard',
-        name: 'dashboard', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
-        component: () => import('@/views/dashboard/index'),
-        meta: { title: '首页', icon: 'dashboard' }
-      }]
-    },
     {
       path: '/system',
       component: Layout,

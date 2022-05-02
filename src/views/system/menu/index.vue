@@ -168,9 +168,6 @@ export default {
     }
   },
   computed: {
-    menuTreeData() {
-      return this.tableData
-    }
   },
   created() {
     this.getMenus()
