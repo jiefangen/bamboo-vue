@@ -24,6 +24,7 @@
     "sortablejs": "1.8.4",
     "vue": "2.6.10",
     "vue-router": "3.0.6",
+    "vuedraggable": "2.20.0",
     "vuex": "3.1.0"
   },
   "devDependencies": {

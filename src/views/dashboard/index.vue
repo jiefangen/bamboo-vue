@@ -1,30 +1,32 @@
 <template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+  <div className="dashboard-container">
+    <component :is="currentRole" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import adminDashboard from './admin'
+import generalDashboard from './general'
 
 export default {
   name: 'Dashboard',
+  components: { adminDashboard, generalDashboard },
+  data() {
+    return {
+      currentRole: 'generalDashboard'
+    }
+  },
   computed: {
     ...mapGetters([
-      'name'
+      'roles'
     ])
+  },
+  created() {
+    const topRoles = ['ADMIN', 'SYSTEM', 'ACTUATOR']
+    if (topRoles.some(role => this.roles.includes(role))) {
+      this.currentRole = 'adminDashboard'
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
-</style>
