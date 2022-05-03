@@ -1,17 +1,4 @@
-import { constantRoutes } from '@/router'
-
-import Layout from '@/layout'
-
-/**
- * 组件映射容器
- */
-const asyncRouteMap = {
-  layout: Layout,
-  dashboard: () => import('@/views/dashboard/index'),
-  sys_user: () => import('@/views/system/user/index'),
-  sys_role: () => import('@/views/system/role/index'),
-  sys_menu: () => import('@/views/system/menu/index')
- }
+import { constantRoutes, asyncRouteMap } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission

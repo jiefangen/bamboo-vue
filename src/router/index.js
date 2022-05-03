@@ -7,6 +7,17 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /**
+ * 组件映射容器
+ */
+export const asyncRouteMap = {
+  layout: Layout,
+  dashboard: () => import('@/views/dashboard/index'),
+  sys_user: () => import('@/views/system/user/index'),
+  sys_role: () => import('@/views/system/role/index'),
+  sys_menu: () => import('@/views/system/menu/index')
+}
+
+/**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  *
