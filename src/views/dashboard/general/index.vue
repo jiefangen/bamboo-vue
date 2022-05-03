@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-editor-container">
+  <div class="dashboard-customer-container">
     <div class=" clearfix">
       <pan-thumb :image="avatar" style="float: left">
         Your Roles:
@@ -46,7 +46,7 @@ export default {
   margin: 0 auto;
 }
 
-.dashboard-editor-container {
+.dashboard-customer-container {
   background-color: #e3e3e3;
   min-height: 100vh;
   padding: 50px 60px 0px;

@@ -1,19 +1,19 @@
 <template>
-  <div class="app-container">
+  <div class="dashboard-admin-container">
     <div class="board">
-      <dragBoard :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />
-      <dragBoard :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />
-      <dragBoard :key="3" :list="list3" :group="group" class="kanban done" header-text="Done" />
+      <drag-board :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />
+      <drag-board :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />
+      <drag-board :key="3" :list="list3" :group="group" class="kanban done" header-text="Done" />
     </div>
   </div>
 </template>
 <script>
-import dragBoard from '@/components/DragBoard'
+import DragBoard from '@/components/DragBoard'
 
 export default {
   name: 'Dashboard',
   components: {
-    dragBoard
+    DragBoard
   },
   data() {
     return {
@@ -39,6 +39,11 @@ export default {
 }
 </script>
 <style lang="scss">
+.dashboard-admin-container {
+  padding: 32px;
+  //background-color: rgb(240, 242, 245);
+  position: relative;
+}
 .board {
   width: 1000px;
   margin-left: 20px;
@@ -47,7 +52,6 @@ export default {
   flex-direction: row;
   align-items: flex-start;
 }
-
 .kanban {
   &.todo {
     .board-column-header {
