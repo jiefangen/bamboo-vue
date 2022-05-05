@@ -14,7 +14,9 @@ export const asyncRouteMap = {
   dashboard: () => import('@/views/dashboard/index'),
   sys_user: () => import('@/views/system/user/index'),
   sys_role: () => import('@/views/system/role/index'),
-  sys_menu: () => import('@/views/system/menu/index')
+  sys_menu: () => import('@/views/system/menu/index'),
+  monitor_log: () => import('@/views/monitor/log/index'),
+  monitor_api: () => import('@/views/monitor/api/index')
 }
 
 /**
