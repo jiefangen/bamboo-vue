@@ -273,18 +273,21 @@ export default {
     },
     // 右键确认是雷点
     handleSureMinePoint(lattice) {
+      if (this.over) {
+        return false
+      }
       if (!lattice.isOpen) {
         lattice.isMark = true
         lattice.isOpen = true
         this.minePosition.splice(this.minePosition.indexOf(lattice.index), 1)
         this.judgeIsOver()
-        // lattice.isMark = !lattice.isMark;
+        // lattice.isMark = !lattice.isMark
         // if (lattice.isMark) {
-        //     lattice.isOpen = true;
-        //     this.minePosition.splice(this.minePosition.indexOf(lattice.index), 1);
-        //     this.judgeIsOver();
+        //   lattice.isOpen = true
+        //   this.minePosition.splice(this.minePosition.indexOf(lattice.index), 1)
+        //   this.judgeIsOver()
         // } else {
-        //     this.minePosition.push(lattice.index);
+        //   this.minePosition.push(lattice.index)
         // }
       } else {
         if (lattice.isMark) {
