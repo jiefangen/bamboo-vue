@@ -18,8 +18,8 @@
       :row-class-name="tableRowClassName"
       style="width: 100%; margin-top:20px;"
     >
-      <el-table-column prop="username" label="用户名" align="center" />
       <el-table-column prop="ipAddress" label="IP地址" align="center" />
+      <el-table-column prop="username" label="用户名" align="center" />
       <el-table-column prop="actionDesc" label="操作类型" align="center" />
       <el-table-column prop="operatingTimeStr" label="操作时间" align="center" width="160" />
       <el-table-column prop="elapsedTime" label="耗时（秒）" align="center" />
