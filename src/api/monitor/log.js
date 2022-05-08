@@ -8,4 +8,11 @@ export function getList(data) {
   })
 }
 
-export default { getList }
+export function empty() {
+  return request({
+    url: '/auth/monitor/log/empty',
+    method: 'delete'
+  })
+}
+
+export default { getList, empty }
