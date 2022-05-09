@@ -139,11 +139,11 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogRoleVisible" title="编辑角色">
-      <el-form ref="dataRoleForm" :rules="passRules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
+      <el-form ref="dataRoleForm" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="temp.username" :disabled="true" />
         </el-form-item>
-        <el-form-item label="角色范围" prop="roleName">
+        <el-form-item label="角色范围" prop="roleCodes">
           <div class="components-container">
             <el-drag-select v-model="temp.roleCodes" style="width:360px;" multiple placeholder="请选择">
               <el-option v-for="item in allRoles" :key="item.id" :label="item.roleName" :value="item.roleCode" />
@@ -203,7 +203,8 @@
           timestamp: new Date(),
           title: '',
           type: '',
-          status: ''
+          status: '',
+          roleCodes: []
         },
         dialogFormVisible: false,
         dialogStatus: '',
