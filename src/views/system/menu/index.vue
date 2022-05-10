@@ -6,7 +6,6 @@
       :data="tableData"
       row-key="id"
       :tree-props="defaultProps"
-      default-expand-all
       border
       class="menu-tree"
       style="width: 100%; margin-top: 20px"

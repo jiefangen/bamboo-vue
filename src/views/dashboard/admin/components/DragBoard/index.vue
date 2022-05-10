@@ -1,16 +1,23 @@
 <template>
   <div class="board-column">
     <div class="board-column-header">
-      {{ headerText }}
+      {{ headerText }} {{drag?'Dragging':''}}
     </div>
     <draggable
       :list="list"
       v-bind="$attrs"
       class="board-column-content"
       :set-data="setData"
+      forceFallback="true"
+      animation="1000"
+      @start="onStart"
+      @end="onEnd"
+      @add="add"
+      @sort="sort"
+      :move="onMove"
     >
       <div v-for="element in list" :key="element.id" class="board-item">
-        {{ element.name }} {{ element.id }}
+        {{ element.id }}. {{ element.content }}
       </div>
     </draggable>
   </div>
@@ -18,13 +25,24 @@
 
 <script>
 import draggable from 'vuedraggable'
+import { mapGetters } from 'vuex'
+import { sortTodo } from '@/api/facade/todo'
 
 export default {
   name: 'DragBoard',
   components: {
     draggable
   },
+  data() {
+    return {
+      drag: false
+    }
+  },
   props: {
+    workStatus: {
+      type: String,
+      default: '0'
+    },
     headerText: {
       type: String,
       default: 'Header'
@@ -42,22 +60,52 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      'userId',
+      'name'
+    ])
+  },
   methods: {
+    async sortTodo(data) {
+      await sortTodo(data)
+    },
     setData(dataTransfer) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
       dataTransfer.setData('Text', '')
+    },
+    onStart() {
+      this.drag = true
+    },
+    onEnd() {
+      this.drag = false
+    },
+    add({ from, to, item, clone, oldIndex, newIndex }) {
+    },
+    sort({ from, to, item, clone, oldIndex, newIndex }) {
+      const data = {
+        userId: this.userId,
+        workStatus: this.workStatus,
+        list: this.list
+      }
+      this.sortTodo(data)
+    },
+    // move回调方法
+    onMove({ draggedContext, relatedContext }, originalEvent) {
+      // console.log(e.draggedContext.element)
+      // console.log(e.relatedContext.element)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .board-column {
-  min-width: 300px;
+  min-width: 280px;
   min-height: 100px;
   height: auto;
   overflow: hidden;
-  background: #f0f0f0;
+  background: #e3e3e3;
   border-radius: 3px;
 
   .board-column-header {

@@ -24,10 +24,10 @@
       <el-table-column prop="ipAddress" label="IP地址" align="center" />
       <el-table-column prop="username" label="用户名" align="center" />
       <el-table-column prop="actionDesc" label="操作类型" align="center" />
-      <el-table-column prop="elapsedTime" label="耗时（秒）" align="center" />
+      <el-table-column prop="elapsedTime" label="耗时（毫秒）" align="center" />
       <el-table-column prop="statusCode" label="状态码" align="center" />
       <el-table-column prop="operatingTimeStr" label="操作时间" align="center" width="160" />
-      <el-table-column prop="content" label="操作内容" align="center" width="160" :show-overflow-tooltip="true"/>
+      <el-table-column prop="content" label="操作内容" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="exceptionInfo" label="异常信息" width="240" :show-overflow-tooltip="true"/>
     </el-table>
     <!--分页组件-->

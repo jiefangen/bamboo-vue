@@ -1,12 +1,13 @@
 import { login, logout } from '@/api/login'
 import { getList, getInfo } from '@/api/system/user'
-import { getToken, setToken, removeToken, getName, setName, removeName } from '@/utils/auth'
+import { getToken, setToken, removeToken, getName, setName, removeName, setUserId, removeUserId, getUserId } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
     avatar: '',
+    userId: getUserId(),
     name: getName(),
     roles: []
   }
@@ -23,6 +24,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ID: (state, userId) => {
+    state.userId = userId
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -54,6 +58,7 @@ const actions = {
       logout().then(() => {
         removeToken() // must remove  token  first
         removeName()
+        removeUserId()
         resetRouter()
         commit('RESET_STATE')
         resolve()
@@ -70,13 +75,15 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-        const { username, roleCodes } = data
+        const { id, username, roleCodes } = data
          // roles must be a non-empty array
          if (!roleCodes || roleCodes.length <= 0) {
           reject('User must bind role! Please contact the administrator.')
         }
+        commit('SET_ID', id)
         commit('SET_NAME', username)
         commit('SET_ROLES', roleCodes)
+        setUserId(id)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -100,6 +107,7 @@ const actions = {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
       removeName()
+      removeUserId()
       commit('RESET_STATE')
       resolve()
     })
