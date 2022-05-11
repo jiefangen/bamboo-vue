@@ -130,12 +130,13 @@ export default {
     addTodo(e) {
       const text = e.target.value
       if (text.trim()) {
+        const currentTime = new Date()
         const data = {
-          id: this.currentDate.getTime(),
+          id: currentTime.getTime(),
           userId: this.userId,
           workStatus: this.workStatus,
           content: text,
-          updateTime: this.currentDate
+          updateTime: currentTime
         }
         this.list.push(data)
         // 数据持久化
