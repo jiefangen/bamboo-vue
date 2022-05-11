@@ -76,7 +76,7 @@ service.interceptors.response.use(
   },
   error => {
     const errorResponse = error.response
-    if (errorResponse.status === 404) {
+    if (typeof errorResponse !== 'undefined' && errorResponse.status === 404) {
       // 跳转到404页面
       window.location.replace('/#/redirect/404')
     } else {

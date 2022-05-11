@@ -23,3 +23,11 @@ export function addTodoList(data) {
   })
 }
 
+export function delTodo(data) {
+  return request({
+    url: `/facade/todo/delTodo`,
+    method: 'delete',
+    data: data
+  })
+}
+

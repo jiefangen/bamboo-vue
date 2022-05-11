@@ -32,6 +32,9 @@
             <span>{{ element.content }}</span>
             <div class="bottom clearfix">
               <time class="time">{{ new Date(element.updateTime) | parseTime('{y}-{m}-{d} {h}:{i}') }}</time>
+              <el-button v-if="workStatus == 4" type="text" size="small" class="button" @click="deleteClick(element)">
+                <i class="el-icon-delete" />
+              </el-button>
             </div>
           </div>
         </el-card>
@@ -43,7 +46,7 @@
 <script>
 import draggable from 'vuedraggable'
 import { mapGetters } from 'vuex'
-import { sortTodo, addTodoList } from '@/api/facade/todo'
+import { sortTodo, addTodoList, delTodo } from '@/api/facade/todo'
 
 export default {
   name: 'DragBoard',
@@ -95,6 +98,9 @@ export default {
     async addTodoList(data) {
       await addTodoList(data)
     },
+    async delTodo(data) {
+      await delTodo(data)
+    },
     setData(dataTransfer) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
@@ -125,13 +131,14 @@ export default {
       const text = e.target.value
       if (text.trim()) {
         const data = {
+          id: this.currentDate.getTime(),
           userId: this.userId,
           workStatus: this.workStatus,
           content: text,
           updateTime: this.currentDate
         }
         this.list.push(data)
-        // 添加到数据库中
+        // 数据持久化
         this.addTodoList(data)
       }
       e.target.value = ''
@@ -141,6 +148,18 @@ export default {
     },
     todoBlur(e) {
       e.target.value = this.headerText
+    },
+    // 已丢弃待办删除
+    deleteClick(item) {
+      this.list.forEach((it, index, temp) => {
+        if (it === item) {
+          temp.splice(index, 1)
+        }
+      })
+      // 删除持久化
+      item.userId = this.userId
+      item.workStatus = this.workStatus
+      this.delTodo(item)
     }
   }
 }
@@ -195,9 +214,18 @@ export default {
     font-size: 13px;
     color: #999;
   }
+  .button {
+    padding: 0;
+    float: right;
+    color: #999;
+    display:none; // 元素默认隐藏
+  }
+  .card-content:hover .button {
+    display:block;
+  }
   .bottom {
-    margin-top: 11px;
-    line-height: 10px;
+    margin-top: 10px;
+    line-height: 14px;
   }
   .clearfix:before,
   .clearfix:after {
