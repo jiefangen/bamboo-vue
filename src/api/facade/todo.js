@@ -14,3 +14,12 @@ export function sortTodo(data) {
     data: data
   })
 }
+
+export function addTodoList(data) {
+  return request({
+    url: `/facade/todo/addTodo`,
+    method: 'post',
+    data: data
+  })
+}
+

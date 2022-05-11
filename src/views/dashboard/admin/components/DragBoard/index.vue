@@ -1,7 +1,17 @@
 <template>
   <div class="board-column">
     <div class="board-column-header">
-      {{ headerText }} {{drag?'Dragging':''}}
+      <input
+        v-if="workStatus == 1"
+        class="new-todo"
+        autocomplete="off"
+        :placeholder="`请输入${headerText}`"
+        :value="`${headerText} ${drag?'拖拽中':''}`"
+        @focus="todoFocus"
+        @blur="todoBlur"
+        @keyup.enter="addTodo"
+      >
+      <span v-if="workStatus != 1">{{ headerText }} {{drag?'拖拽中':''}}</span>
     </div>
     <draggable
       :list="list"
@@ -16,8 +26,15 @@
       @sort="sort"
       :move="onMove"
     >
-      <div v-for="element in list" :key="element.id" class="board-item">
-        {{ element.id }}. {{ element.content }}
+      <div v-for="element in list" :key="element.id" >
+        <el-card :body-style="{ padding: '0px' }" class="board-item">
+          <div class="card-content">
+            <span>{{ element.content }}</span>
+            <div class="bottom clearfix">
+              <time class="time">{{ new Date(element.updateTime) | parseTime('{y}-{m}-{d} {h}:{i}') }}</time>
+            </div>
+          </div>
+        </el-card>
       </div>
     </draggable>
   </div>
@@ -26,7 +43,7 @@
 <script>
 import draggable from 'vuedraggable'
 import { mapGetters } from 'vuex'
-import { sortTodo } from '@/api/facade/todo'
+import { sortTodo, addTodoList } from '@/api/facade/todo'
 
 export default {
   name: 'DragBoard',
@@ -35,7 +52,8 @@ export default {
   },
   data() {
     return {
-      drag: false
+      drag: false,
+      currentDate: new Date()
     }
   },
   props: {
@@ -56,7 +74,11 @@ export default {
     list: {
       type: Array,
       default() {
-        return []
+        return [{
+          id: '',
+          content: '',
+          updateTime: ''
+        }]
       }
     }
   },
@@ -69,6 +91,9 @@ export default {
   methods: {
     async sortTodo(data) {
       await sortTodo(data)
+    },
+    async addTodoList(data) {
+      await addTodoList(data)
     },
     setData(dataTransfer) {
       // to avoid Firefox bug
@@ -95,6 +120,27 @@ export default {
     onMove({ draggedContext, relatedContext }, originalEvent) {
       // console.log(e.draggedContext.element)
       // console.log(e.relatedContext.element)
+    },
+    addTodo(e) {
+      const text = e.target.value
+      if (text.trim()) {
+        const data = {
+          userId: this.userId,
+          workStatus: this.workStatus,
+          content: text,
+          updateTime: this.currentDate
+        }
+        this.list.push(data)
+        // 添加到数据库中
+        this.addTodoList(data)
+      }
+      e.target.value = ''
+    },
+    todoFocus(e) {
+      e.target.value = ''
+    },
+    todoBlur(e) {
+      e.target.value = this.headerText
     }
   }
 }
@@ -103,22 +149,21 @@ export default {
 .board-column {
   min-width: 280px;
   min-height: 100px;
+  margin-top: 20px;
   height: auto;
   overflow: hidden;
-  background: #e3e3e3;
+  background: #e6e6e6;
   border-radius: 3px;
-
   .board-column-header {
     height: 50px;
     line-height: 50px;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 0 10px;
     text-align: center;
     background: #333;
     color: #fff;
     border-radius: 3px 3px 0 0;
   }
-
   .board-column-content {
     height: auto;
     overflow: hidden;
@@ -128,19 +173,49 @@ export default {
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-
     .board-item {
       cursor: pointer;
-      width: 100%;
-      height: 64px;
+      width: 260px;
+      min-height: 60px;
       margin: 5px 0;
       background-color: #fff;
       text-align: left;
-      line-height: 54px;
+      line-height: 26px;
       padding: 5px 10px;
       box-sizing: border-box;
       box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+
+  .card-content{
+    padding: 6px;
+    font-size: 15px;
+  }
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+  .bottom {
+    margin-top: 11px;
+    line-height: 10px;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .new-todo {
+    width: 240px;
+    color: #fff;
+    text-align: center;
+    padding: 10px 10px 8px 10px; // 上右下左
+    border: none;
+    background: rgba(0, 0, 0, 0.003);
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   }
 }
 </style>

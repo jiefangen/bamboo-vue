@@ -7,7 +7,7 @@
         :group="group"
         class="kanban todo"
         work-status="1"
-        header-text="Todo"
+        header-text="待办事项"
       />
       <drag-board
         :key="2"
@@ -15,7 +15,7 @@
         :group="group"
         class="kanban working"
         work-status="2"
-        header-text="Working"
+        header-text="进行中事项"
       />
       <drag-board
         :key="3"
@@ -23,7 +23,7 @@
         :group="group"
         class="kanban done"
         work-status="3"
-        header-text="Done"
+        header-text="已完成事项"
       />
       <drag-board
         :key="4"
@@ -31,7 +31,7 @@
         :group="group"
         class="kanban discard"
         work-status="4"
-        header-text="Discard"
+        header-text="已丢弃事项"
       />
     </div>
   </div>
@@ -84,8 +84,6 @@ export default {
   position: relative;
 }
 .board {
-  //width: 1000px;
-  //margin-left: 10px;
   display: flex;
   justify-content: space-around;
   flex-direction: row;
