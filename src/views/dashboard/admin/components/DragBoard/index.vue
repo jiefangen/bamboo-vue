@@ -10,7 +10,7 @@
         @focus="todoFocus"
         @blur="todoBlur"
         @keyup.enter="addTodo"
-      >
+      />
       <span v-if="workStatus != 1">{{ headerText }} {{drag?'拖拽中':''}}</span>
     </div>
     <draggable
@@ -27,13 +27,30 @@
       :move="onMove"
     >
       <div v-for="element in list" :key="element.id" >
+        <!-- 待办列表卡片 -->
         <el-card :body-style="{ padding: '0px' }" class="board-item">
           <div class="card-content">
-            <span>{{ element.content }}</span>
+            <!-- 待办状态-编辑框 -->
+            <el-input
+              v-if="workStatus == 1 && element.edit"
+              v-model="element.content"
+              ref="editContent"
+              v-focus="element.edit"
+              :autofocus="true"
+              class="edit-input"
+              @keyup.enter.native="doneEdit(element)"
+              @blur="cancelEdit(element)"
+            />
+            <span v-else>{{ element.content }}</span>
             <div class="bottom clearfix">
               <time class="time">{{ new Date(element.updateTime) | parseTime('{y}-{m}-{d} {h}:{i}') }}</time>
+              <!-- 废弃状态-删除按钮 -->
               <el-button v-if="workStatus == 4" type="text" size="small" class="button" @click="deleteClick(element)">
                 <i class="el-icon-delete" />
+              </el-button>
+              <!-- 待办状态-编辑按钮 -->
+              <el-button v-if="workStatus == 1" type="text" size="small" class="button" @click="handleEdit(element)">
+                <i class="el-icon-edit-outline" />
               </el-button>
             </div>
           </div>
@@ -46,10 +63,19 @@
 <script>
 import draggable from 'vuedraggable'
 import { mapGetters } from 'vuex'
-import { sortTodo, addTodoList, delTodo } from '@/api/facade/todo'
+import { sortTodo, addTodoList, delTodo, editTodo } from '@/api/facade/todo'
 
 export default {
   name: 'DragBoard',
+  directives: {
+    focus(el, { value }, { context }) {
+      if (value) {
+        context.$nextTick(() => {
+          el.focus()
+        })
+      }
+    }
+  },
   components: {
     draggable
   },
@@ -80,7 +106,9 @@ export default {
         return [{
           id: '',
           content: '',
-          updateTime: ''
+          updateTime: '',
+          edit: false,
+          targetContent: ''
         }]
       }
     }
@@ -100,6 +128,9 @@ export default {
     },
     async delTodo(data) {
       await delTodo(data)
+    },
+    async editTodo(data) {
+      await editTodo(data)
     },
     setData(dataTransfer) {
       // to avoid Firefox bug
@@ -136,7 +167,8 @@ export default {
           userId: this.userId,
           workStatus: this.workStatus,
           content: text,
-          updateTime: currentTime
+          updateTime: currentTime,
+          edit: false
         }
         this.list.push(data)
         // 数据持久化
@@ -161,6 +193,25 @@ export default {
       item.userId = this.userId
       item.workStatus = this.workStatus
       this.delTodo(item)
+    },
+    handleEdit(element) {
+      element.edit = true
+      element.targetContent = element.content
+      this.$nextTick(() => {
+        this.$refs.editContent[0].focus()
+      })
+    },
+    doneEdit(element) {
+      element.edit = false
+      element.updateTime = new Date()
+      element.userId = this.userId
+      element.targetContent = ''
+      // 数据持久化
+      this.editTodo(element)
+    },
+    cancelEdit(element) {
+      element.edit = false
+      element.content = element.targetContent
     }
   }
 }

@@ -9,7 +9,7 @@ export function getTodoList(userId) {
 
 export function sortTodo(data) {
   return request({
-    url: `/facade/todo/sortTodo`,
+    url: `/facade/todo/sort`,
     method: 'post',
     data: data
   })
@@ -17,7 +17,7 @@ export function sortTodo(data) {
 
 export function addTodoList(data) {
   return request({
-    url: `/facade/todo/addTodo`,
+    url: `/facade/todo/add`,
     method: 'post',
     data: data
   })
@@ -25,9 +25,16 @@ export function addTodoList(data) {
 
 export function delTodo(data) {
   return request({
-    url: `/facade/todo/delTodo`,
+    url: `/facade/todo/del`,
     method: 'delete',
     data: data
   })
 }
 
+export function editTodo(data) {
+  return request({
+    url: `/facade/todo/edit`,
+    method: 'put',
+    data: data
+  })
+}
