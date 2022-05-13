@@ -64,7 +64,7 @@
 import draggable from 'vuedraggable'
 import { mapGetters } from 'vuex'
 import { sortTodo, addTodoList, delTodo, editTodo } from '@/api/facade/todo'
-import { uuid } from '@/utils/uuid'
+import { getDtRdId } from '@/utils/uuid'
 
 export default {
   name: 'DragBoard',
@@ -164,7 +164,7 @@ export default {
       if (text.trim()) {
         const currentTime = new Date()
         const data = {
-          id: uuid(8, 10),
+          id: getDtRdId(4),
           userId: this.userId,
           workStatus: this.workStatus,
           content: text,

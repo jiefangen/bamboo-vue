@@ -1,4 +1,32 @@
 /**
+ * 获取UUID
+ * // 0ccef3b3-f906-49af-8661-22e4d38f3186
+ * @returns {string}
+ */
+export function getUuid() {
+  const s = []
+  const hexDigits = '0123456789abcdef'
+  for (let i = 0; i < 36; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
+  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
+  s[8] = s[13] = s[18] = s[23] = '-'
+  const uuid = s.join('')
+  return uuid
+}
+
+/**
+ * 生成一个用不重复的ID
+ * // 4 randomLength
+ * e18gnpiza2o
+ * @param { Number } randomLength
+ */
+export function getDtRdId(randomLength) {
+  return Number(Math.random().toString().substr(2, randomLength) + Date.now()).toString(36)
+}
+
+/**
  * 生成指定长度和基数
  * // 8 character ID (base=2)
  * uuid(8, 2)  //  "01001010"
@@ -32,32 +60,8 @@ export function uuid(len, radix) {
 }
 
 /**
- * 获取UUID
- * @returns {string}
- */
-export function getUuid() {
-  const s = []
-  const hexDigits = '0123456789abcdef'
-  for (let i = 0; i < 36; i++) {
-    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-  }
-  s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
-  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
-  s[8] = s[13] = s[18] = s[23] = '-'
-  const uuid = s.join('')
-  return uuid
-}
-
-/**
- * 生成一个用不重复的ID
- * @param { Number } randomLength
- */
-export function getDtRdId(randomLength) {
-  return Number(Math.random().toString().substr(3, randomLength) + Date.now()).toString(36)
-}
-
-/**
  * 根据时间以及随机数生成唯一ID
+ * // 22051316590318
  * @returns {string}
  */
 export function getDtId() {
