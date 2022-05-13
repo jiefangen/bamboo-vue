@@ -109,6 +109,7 @@
 
 <script>
 import { getMenus, getChildKeys, addMenu, deleteMenu, updateMenu } from '@/api/system/menu'
+import { uuid } from '@/utils/uuid'
 
 export default {
   filters: {
@@ -224,7 +225,9 @@ export default {
           delete this.temp.children
           const obj = Object.assign({}, this.temp)
           obj.children = []
-          obj.id = new Date().getTime() // 添加树时需要，此处使用时间戳来确保树节点唯一
+          // 添加树时需要，此处使用时间戳来确保树节点唯一
+          // obj.id = new Date().getTime()
+          obj.id = uuid(8, 10)
           if (this.sonStatus === false) { // 顶级菜单
             // 新增节点自动排在末尾
             obj.parentId = 0
