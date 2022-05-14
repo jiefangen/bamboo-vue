@@ -227,7 +227,7 @@ export default {
           obj.children = []
           // 添加树时需要，此处使用时间戳来确保树节点唯一
           // obj.id = new Date().getTime()
-          obj.id = uuid(8, 10)
+          obj.id = uuid(6, 10)
           if (this.sonStatus === false) { // 顶级菜单
             // 新增节点自动排在末尾
             obj.parentId = 0
