@@ -7,7 +7,7 @@
 <script>
 export default {
   data() {
-    const iframeUri = '/doc.html'
+    const iframeUri = '/druid/index.html'
     return {
       iframeUrl: process.env.VUE_APP_BASE_API + iframeUri
     }

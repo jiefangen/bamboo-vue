@@ -64,3 +64,19 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+// iframe global css
+.iframe-container {
+  position: absolute;
+  top: 34px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin-top: -29px;
+}
+.frame {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
