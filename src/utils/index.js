@@ -8,7 +8,7 @@
  * @param {string} cFormat
  * @returns {string | null}
  */
- export function parseTime(time, cFormat) {
+export function parseTime(time, cFormat) {
   if (arguments.length === 0 || !time) {
     return null
   }
@@ -145,7 +145,7 @@ export function cleanArray(actual) {
 
 /**
  * @param {Object} json
- * @returns {Array}
+ * @returns {string}
  */
 export function param(json) {
   if (!json) return ''

@@ -6,7 +6,6 @@
       :data="tableData"
       row-key="id"
       :tree-props="defaultProps"
-      default-expand-all
       border
       class="menu-tree"
       style="width: 100%; margin-top: 20px"
@@ -21,7 +20,7 @@
 
       <!-- 菜单节点元素 -->
       <!-- <el-table-column prop="menuName" label="名称" /> -->
-      <el-table-column prop="menuPath" label="菜单路径" align="center" />
+      <el-table-column prop="menuPath" label="菜单路径" align="center" :show-overflow-tooltip="true" />
       <el-table-column prop="redirect" label="菜单跳转" align="center" />
       <el-table-column prop="component" label="组件映射" align="center" />
       <el-table-column label="隐藏" align="center" width="120">
@@ -110,6 +109,7 @@
 
 <script>
 import { getMenus, getChildKeys, addMenu, deleteMenu, updateMenu } from '@/api/system/menu'
+import { uuid } from '@/utils/uuid'
 
 export default {
   filters: {
@@ -225,7 +225,9 @@ export default {
           delete this.temp.children
           const obj = Object.assign({}, this.temp)
           obj.children = []
-          obj.id = new Date().getTime() // 添加树时需要，此处使用时间戳来确保树节点唯一
+          // 添加树时需要，此处使用时间戳来确保树节点唯一
+          // obj.id = new Date().getTime()
+          obj.id = uuid(6, 10)
           if (this.sonStatus === false) { // 顶级菜单
             // 新增节点自动排在末尾
             obj.parentId = 0

@@ -15,6 +15,9 @@ export const asyncRouteMap = {
   sys_user: () => import('@/views/system/user/index'),
   sys_role: () => import('@/views/system/role/index'),
   sys_menu: () => import('@/views/system/menu/index'),
+  monitor_log: () => import('@/views/monitor/log/index'),
+  monitor_api: () => import('@/views/monitor/api/index'),
+  monitor_druid: () => import('@/views/monitor/druid/index'),
   relax_sweep: () => import('@/views/relax/minesweeper/index'),
   relax_card: () => import('@/views/relax/card/index')
 }

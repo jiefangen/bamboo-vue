@@ -40,11 +40,11 @@ export function updateUserRole(data) {
 }
 
 // 返回用户的信息以及角色信息
-export function getInfo(username) {
+export function getInfo(token) {
   return request({
     url: '/auth/system/user/info',
     method: 'get',
-    params: { username }
+    params: { token }
   })
 }
 
