@@ -60,7 +60,7 @@ npm run lint -- --fix
 ## Demo演示图例
 
 - 登录模块
-![](https://github.com/jiefangen/bamboo-vue/blob/main/mock/diagram/facade.png)
+![](mock/diagram/login.png)
 - 首页--代办事项（可快速添加删除修改代办，拖拽以修改代办状态）
 ![](mock/diagram/facade.png)
 - 系统管理--用户管理（除了增删查改等，还包括给用户授权等能力）
