@@ -1,19 +1,16 @@
 # bamboo-vue
 BAMBOO后台管理系统--前端项目
 
-> 这是一个极简的 vue admin 管理后台。它只包含了 Element UI & axios & iconfont & permission control & lint，这些搭建后台必要的东西。
+> 这是一个极简的 vue admin 管理后台的前端项目。它基于优秀的开源模版
+[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)进行定制化开发。
 
-目前版本为 `v4.0+` 基于 `vue-cli` 进行构建，若你想使用旧版本，可以切换分支到[tag/3.11.0](https://github.com/PanJiaChen/bamboo-vue/tree/tag/3.11.0)，它不依赖 `vue-cli`。
-
-## Extra
-
-如果你想要根据用户角色来动态生成侧边栏和 router
+目前版本为 `v4.0+` 基于 `vue-cli` 进行构建。
 
 ## 相关项目
 
 - [bamboo-admin](https://github.com/jiefangen/bamboo-admin)
 
-## Build Setup
+## 项目构建
 
 ```bash
 # 克隆项目
@@ -60,18 +57,20 @@ npm run lint
 npm run lint -- --fix
 ```
 
-## Demo
+## Demo演示图例
 
-![demo]()
-
-## Browsers support
-
-Modern browsers and Internet Explorer 10+.
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
-
+- 登录模块
+![](mock/diagram/login.png)
+- 首页--代办事项（可快速添加删除修改代办，拖拽以修改代办状态）
+![](mock/diagram/facade.png)
+- 系统管理--用户管理（除了增删查改等，还包括给用户授权等能力）
+![](mock/diagram/user.png)
+- 系统管理--角色管理（相应的角色授权菜单权限）
+![](mock/diagram/role.png)
+- 系统管理--菜单管理
+![](mock/diagram/menu.png)
+- 监控管理--日志操作
+![](mock/diagram/log.png)
 ## License
 
 [MIT](https://github.com/jiefangen/bamboo-vue/blob/main/LICENSE) license.
